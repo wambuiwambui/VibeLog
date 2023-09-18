@@ -7,7 +7,9 @@ function Journal() {
 
   useEffect(() => {
     // Fetch journal entries
-    axios.get('http://127.0.0.1:5001/api/journal-entries/')
+    axios.get('http://127.0.0.1:5001/api/journal-entries/', {
+      headers: { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }
+    })
       .then((response) => {
         setEntries(response.data.entries);
       })
@@ -19,7 +21,7 @@ function Journal() {
   const createEntry = () => {
     // Send a POST request to create a new entry
     axios.post('http://127.0.0.1:5001/api/journal-entries/', newEntry, {
-      headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      headers: { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }
     })
       .then((response) => {
         setEntries([...entries, response.data]);
@@ -33,7 +35,7 @@ function Journal() {
   const deleteEntry = (id) => {
     // Send a DELETE request to delete an entry
     axios.delete(`http://127.0.0.1:5001/api/journal-entries/${id}`, {
-      headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      headers: { 'Authorization': `Bearer ${localStorage.getItem('access_token')}` }
     })
       .then(() => {
         setEntries(entries.filter((entry) => entry.id !== id));

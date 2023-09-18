@@ -1,4 +1,5 @@
 from flask import jsonify, request, Blueprint
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from config import db
 from models.models import JournalEntry
 
@@ -7,7 +8,9 @@ journals = Blueprint('journals', __name__)
 
 # Create a new journal entry
 @journals.route('/journal-entries/', methods=['POST'])
+@jwt_required()
 def create_journal_entry():
+    current_user = get_jwt_identity()
     data = request.json
     title = data.get('title')
     content = data.get('content')
@@ -15,7 +18,7 @@ def create_journal_entry():
     if not title or not content:
         return jsonify({"message": "Title and content are required"}), 400
 
-    entry = JournalEntry(title=title, content=content)
+    entry = JournalEntry(title=title, content=content, user_id=current_user)
     db.session.add(entry)
     db.session.commit()
 
@@ -25,6 +28,7 @@ def create_journal_entry():
 
 # Retrieve all journal entries
 @journals.route('/journal-entries/', methods=['GET'])
+@jwt_required()
 def get_journal_entries():
     entries = JournalEntry.query.all()
     entries_list = [{"id": entry.id, "title": entry.title, "content": entry.content} for entry in entries]
@@ -32,6 +36,7 @@ def get_journal_entries():
 
 #retrieve specific journal
 @journals.route('/journal-entries/<int:entry_id>', methods=['GET'])
+@jwt_required()
 def get_journal_entry(entry_id):
     entry= JournalEntry.query.get(entry_id)
     if entry is None:
@@ -42,6 +47,7 @@ def get_journal_entry(entry_id):
 
 #Delete a journal entry by ID
 @journals.route('/journal-entries/<int:entry_id>', methods=['DELETE'])
+@jwt_required()
 def delete_journal_entry(entry_id):
     entry = JournalEntry.query.get(entry_id)
     if entry is None:

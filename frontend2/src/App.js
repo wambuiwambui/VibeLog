@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom'; // Import useNavigate
 import Header from './Header';
 import LoginForm from './LoginForm';
@@ -8,29 +8,7 @@ import JournalEntry from './JournalEntry';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [message, setMessage] = useState('');
   const navigate = useNavigate(); // Use useNavigate to navigate programmatically
-
-  useEffect(() => {
-    // Make a GET request to your Flask backend
-    fetch('http://localhost:5001/api', {
-      method: 'GET',
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`Network response was not ok (${res.status})`);
-        }
-        return res.json();
-      })
-      .then((data) => {
-        // Set the message from the JSON response in the state
-        setMessage(data.message);
-      })
-      .catch((error) => {
-        console.error('Fetch error:', error);
-        // Handle the error
-      });
-  }, [message]);
 
   const handleSignupClick = async (email, username, password) => {
     console.log('Signup button clicked');
@@ -90,7 +68,7 @@ function App() {
     <div className="App">
       <Header isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
       <Routes>
-        <Route path="/" element={<h1>{message}</h1>} />
+        <Route path="/" element={<h1>Welcome to VibeLog</h1>} />
         <Route
           path="/login"
           element={<LoginForm handleLoginClick={handleLoginClick} />}
