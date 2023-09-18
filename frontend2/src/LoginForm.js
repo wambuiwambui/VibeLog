@@ -1,50 +1,39 @@
+// LoginForm.js
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function LoginForm({ onLogin }) {
-  const [email, setEmail] = useState('');
+function LoginForm({ handleLoginClick }) {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Add your login logic here
-    // You can use 'email' and 'password' in your authentication process
-    // Call onLogin when login is successful
-    onLogin();
-  };
 
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Login</button>
-      </form>
+      <div>
+        <label>Username:</label>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Password:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </div>
+      <button onClick={() => handleLoginClick(username, password)}>Login</button>
     </div>
   );
 }
 
 LoginForm.propTypes = {
-  onLogin: PropTypes.func.isRequired,
+  handleLoginClick: PropTypes.func.isRequired
 };
 
 export default LoginForm;
-
-

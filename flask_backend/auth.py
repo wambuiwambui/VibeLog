@@ -1,16 +1,11 @@
-from flask import Flask, request, jsonify, Blueprint
-from flask_jwt_extended import JWTManager, jwt_required, create_access_token, get_jwt_identity
+from flask import request, jsonify, Blueprint
+from flask_jwt_extended import jwt_required, create_access_token, get_jwt_identity
 
 #Create Blueprint for authentication
 auth = Blueprint('auth', __name__)
 
-app = Flask(__name__)
-jwt = JWTManager(app)
-
 #user dictionary(store username-passwords pairs)
-users = {
-    'username': 'password'
-}
+users = []
 
 # Login to generate access token
 @auth.route('/login', methods=['POST'])
@@ -20,8 +15,9 @@ def login():
     password = data.get('password')
 
     #check if username exists
-    if username not in users or users[username] != password:
-        return jsonify({"message": "Invalid credentials"}), 401
+    for user in users:
+        if not user[username] or user[password] != password:
+            return jsonify({"message": "Invalid credentials"}), 401
 
     # Create access token/refresh tokens
     access_token = create_access_token(identity=username)
@@ -45,11 +41,16 @@ def signup():
     email=data.get('email')
     password = data.get('password')
 
-    if username in users:
-        return jsonify({"message": "Username exists"}), 400
+    for user in users:
+        if user.get(username) == username:
+            return jsonify({"message": "Username exists"}), 400
     
     #add user to database
-    users[username] = password
+    users.append({
+        username: username,
+        email: email,
+        password: password
+    })
 
     return jsonify({"message": "User successfully created"}), 201
 

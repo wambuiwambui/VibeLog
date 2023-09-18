@@ -1,67 +1,51 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-function SignupForm({ onSignup }) {
+function SignupForm({ handleSignupClick }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      // Make a POST request to your signup API endpoint with the email and password
-      const response = await fetch('http://your-api-url/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
-      }
-
-      // Signup successful, trigger the onSignup callback
-      onSignup();
-    } catch (error) {
-      console.error('Signup error:', error);
-      // Handle the error (e.g., display an error message to the user)
-    }
-  };
+  const [username, setUsername] = useState('')
 
   return (
     <div>
       <h2>Sign Up</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Sign Up</button>
-      </form>
+      <div>
+        <label>Email:</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Username:</label>
+        <input
+          type="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+      </div>
+      <div>
+        <label>Password:</label>
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+      </div>
+      <button onClick={() => handleSignupClick(email, username, password)}>Sign Up</button>
     </div>
   );
 }
 
 SignupForm.propTypes = {
-  onSignup: PropTypes.func.isRequired,
+  handleSignupClick: PropTypes.func.isRequired,
 };
 
 export default SignupForm;
+
 
 

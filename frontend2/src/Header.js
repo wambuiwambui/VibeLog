@@ -1,9 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Header() {
   const headerStyle = {
     background: `url('/logo.png') center/cover no-repeat`,
-    height: '100vh',
+    height: '50vh',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -43,12 +44,12 @@ function Header() {
           Your personal journaling app to capture your thoughts and experiences.
         </p>
         <div>
-          <button className="btn btn-primary" style={buttonStyle}>
-            Sign Up
-          </button>
-          <button className="btn btn-success" style={buttonStyle}>
+          <Link to="/login" style={buttonStyle}>
             Login
-          </button>
+          </Link>
+          <Link to="/signup" style={buttonStyle}>
+            Sign Up
+          </Link>
         </div>
       </div>
     </header>
