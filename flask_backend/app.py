@@ -1,8 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
-from flask_backend.routes.auth import auth
-from flask_backend.routes.journals import journals
+from routes.auth import auth
+from routes.journals import journals
 from config import init_app
 
 app = Flask(__name__)
