@@ -7,6 +7,7 @@ db = SQLAlchemy()
 DATABASE_URI = 'sqlite:///journal.db'
 
 def init_app(app):
+    app.config['JWT_SECRET_KEY'] = 'your_secret_key'
     app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app)
