@@ -4,6 +4,8 @@ import Header from './Header';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
 import JournalEntry from './JournalEntry';
+import Footer from './Footer';
+
 
 
 function App() {
@@ -79,8 +81,10 @@ function App() {
         />
        <Route path="/journal-entry" element={<JournalEntry />} />
       </Routes>
+      <Footer />
     </div>
   );
 }
 
 export default App;
+

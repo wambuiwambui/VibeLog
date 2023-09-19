@@ -16,7 +16,7 @@ function Journal() {
       .catch((error) => {
         console.error('Error fetching entries:', error);
       });
-  }, []);
+  }, [entries]);
 
   const createEntry = () => {
     // Send a POST request to create a new entry
@@ -45,29 +45,65 @@ function Journal() {
       });
   };
 
+  const containerStyle = {
+    maxWidth: '800px',
+    margin: '0 auto',
+    padding: '20px',
+  };
+
+  const inputStyle = {
+    width: '100%',
+    padding: '10px',
+    margin: '5px 0',
+    borderRadius: '4px',
+    border: '1px solid #ccc',
+  };
+
+  const buttonStyle = {
+    padding: '10px 20px',
+    margin: '10px 0',
+    borderRadius: '4px',
+    backgroundColor: '#1877f2', // Facebook blue
+    color: 'white',
+    border: 'none',
+    cursor: 'pointer',
+  };
+
   return (
-    <div>
+    <div style={containerStyle}>
       <h2>Journal</h2>
       <div>
         <input
+          style={inputStyle}
           type="text"
           placeholder="Title"
           value={newEntry.title}
           onChange={(e) => setNewEntry({ ...newEntry, title: e.target.value })}
         />
         <textarea
+          style={inputStyle}
           placeholder="Content"
           value={newEntry.content}
           onChange={(e) => setNewEntry({ ...newEntry, content: e.target.value })}
         />
-        <button onClick={createEntry}>Create Entry</button>
+        <button
+          style={buttonStyle}
+          onClick={createEntry}
+        >
+          Create Entry
+        </button>
       </div>
       <div>
         {entries.map((entry) => (
           <div key={entry.id}>
             <h3>{entry.title}</h3>
             <p>{entry.content}</p>
-            <button onClick={() => deleteEntry(entry.id)}>Delete</button>
+            <button
+              style={buttonStyle}
+              onClick={() => deleteEntry(entry.id)}
+            >
+              Delete
+            </button>
           </div>
         ))}
       </div>
@@ -76,3 +112,4 @@ function Journal() {
 }
 
 export default Journal;
+

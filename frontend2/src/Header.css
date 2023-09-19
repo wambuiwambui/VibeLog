@@ -1,0 +1,71 @@
+/* Header.css */
+.header {
+    background-image: url('/logo.png');
+    background-position: center;
+    background-size: cover;
+    height: 100vh; /* Set height to 100vh for full-screen */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+  }
+  
+  .container {
+    background: rgba(0, 0, 0, 0.8);
+    padding: 20px; /* Reduce padding to make room for login form */
+    border-radius: 0; /* Remove border radius */
+    text-align: center;
+    width: 100%; /* Make container full-width */
+    height: 100%; /* Make container full-height */
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .title {
+    color: #ffffff;
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .description {
+    color: #ffffff;
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  /* Style your login form, input fields, etc. here */
+  .login-form {
+    max-width: 400px;
+    width: 100%;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Style login and signup buttons */
+  .button {
+    margin: 5px;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+  }
+  
+  .login-button {
+    background-color: #1877f2;
+    color: white;
+  }
+  
+  .signup-button {
+    background-color: #2716c5;
+    color: rgb(168, 26, 26);
+  }
+  
